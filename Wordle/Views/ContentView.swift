@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(ModelData.self) var modelData
     
     @State private var inputString: String = ""
     
     var body: some View {
+
         VStack(alignment: .center) {
-            WordListView().environment(ModelData())
+            WordListView().environment(modelData)
             TextField(
                 "Input",
                 text: $inputString
@@ -22,10 +24,16 @@ struct ContentView: View {
         }
         .padding()
         
-        Button("Confirm", action: {})
+        Button(
+            "Confirm",
+            action: {
+                modelData.guesses.append(.init(id: modelData.guesses.count, text: inputString))
+                inputString = ""
+            }
+        )
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().environment(ModelData())
 }
