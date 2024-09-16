@@ -103,8 +103,8 @@
 		379BE4432C9273F400C8EF7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				379BE4462C9293CF00C8EF7D /* Word.swift */,
 				379BE4442C92743D00C8EF7D /* ModelData.swift */,
+				379BE4462C9293CF00C8EF7D /* Word.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

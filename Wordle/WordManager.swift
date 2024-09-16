@@ -22,7 +22,7 @@ class WordManager {
             do {
                 let fileString = try String(contentsOf: fileURL)
                 let allWords: [String] = fileString.components(separatedBy: "\n")
-                wordList = allWords.filter({ $0.count == wordLength && checkWord(word: $0) }).map { $0.uppercased() }
+                wordList = allWords.filter({ $0.count == wordLength && WordManager.validWord(word: $0) }).map { $0.uppercased() }
             } catch {
                 print("Load file error.")
             }
@@ -38,10 +38,12 @@ class WordManager {
         return wordList.randomElement()
     }
     
-    func checkWord(word: String) -> Bool {
+    static func validWord(word: String) -> Bool {
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.count)
-        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        let misspelledRange = checker.rangeOfMisspelledWord(
+            in: word.lowercased(), range: range, startingAt: 0, wrap: false, language: "en"
+        )
 
         return misspelledRange.location == NSNotFound
     }

@@ -9,5 +9,5 @@ import Foundation
 
 @Observable
 class ModelData {
-    var guesses: [Word] = [.init(id: 0, text: "above"), .init(id: 1, text: "aside")]
+    var guesses: [Word] = []
 }
