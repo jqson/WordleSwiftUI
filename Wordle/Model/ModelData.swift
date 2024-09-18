@@ -9,6 +9,5 @@ import Foundation
 
 @Observable
 class ModelData {
-    var targetWord: String = ""
     var guesses: [Word] = []
 }

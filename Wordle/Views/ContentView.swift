@@ -24,11 +24,12 @@ struct ContentView: View {
     
     @Environment(ModelData.self) var modelData
     
+    @State private var targetWord: String = ""
     @State private var inputString: String = ""
     @State private var guessState: GuessState = .valid
     
     @FocusState var isTextFieldFocused: Bool
-
+    
     var message: String {
         switch guessState {
         case .valid:
@@ -98,7 +99,7 @@ struct ContentView: View {
     
     private func generateWord() {
         if let word = WordManager(wordLength: Constants.wordLength).getRandomWord() {
-            modelData.targetWord = word
+            targetWord = word
         } else {
             assertionFailure("Failed to find target word.")
         }
@@ -119,7 +120,7 @@ struct ContentView: View {
         
         let guessWord: Word = .init(
             id: modelData.guesses.count,
-            targetWord: modelData.targetWord,
+            targetWord: targetWord,
             inputText: inputString
         )
         modelData.guesses.append(guessWord)
