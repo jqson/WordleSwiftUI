@@ -28,23 +28,38 @@ struct ContentView: View {
     @State private var inputState: InputState = .valid
     
     var body: some View {
-        NavigationView {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            
             VStack(alignment: .center) {
                 WordListView().environment(modelData)
                 
-                TextField(
-                    "INPUT",
-                    text: $inputString
-                )
-                .multilineTextAlignment(.center)
-                .autocapitalization(.allCharacters)
+                Spacer()
+                
+                TextField("", text: $inputString, prompt: Text("INPUT").foregroundStyle(.gray))
+                    .multilineTextAlignment(.center)
+                    .autocapitalization(.allCharacters)
+                    .font(.system(size: 20))
+                    .foregroundStyle(.white)
+                    .tint(.white)
                 
                 Text(getMessage())
+                    .foregroundStyle(.white)
+                    .padding(20)
                 
-                Button("Confirm", action: buttonClicked)
+                Button(action: buttonClicked) {
+                    Text("Confirm")
+                        .font(.system(size: 20, weight: .bold))
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(.letterCorrect)
             }
-            .padding()
-        }.onAppear(perform: generateWord)
+            .padding([.top, .bottom], 150)
+            .padding([.leading, .trailing], 40)
+            .onAppear(perform: generateWord)
+        }
     }
     
     private func generateWord() {

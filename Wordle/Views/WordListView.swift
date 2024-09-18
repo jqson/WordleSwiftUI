@@ -15,7 +15,7 @@ struct WordListView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: WordView.Constants.letterPadding) {
             ForEach(gusses) { guess in
                 WordView(word: guess)
             }
