@@ -31,12 +31,15 @@ struct ContentView: View {
         NavigationView {
             VStack(alignment: .center) {
                 WordListView().environment(modelData)
+                
                 TextField(
                     "INPUT",
                     text: $inputString
                 )
                 .multilineTextAlignment(.center)
                 .autocapitalization(.allCharacters)
+                
+                Text(getMessage())
                 
                 Button("Confirm", action: buttonClicked)
             }
@@ -81,6 +84,24 @@ struct ContentView: View {
         }
         
         return .valid
+    }
+    
+    private func getMessage() -> String {
+        let message: String
+        switch inputState {
+        case .wrongLength:
+            message = "Wong length"
+        case .invalidWord:
+            message = "Invalid input"
+        case .wordNotFound:
+            message = "Not a word"
+        case .unknown:
+            message = "Unknown error"
+        case .valid:
+            message = ""
+        }
+        
+        return message
     }
 }
 
