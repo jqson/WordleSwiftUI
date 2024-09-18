@@ -100,7 +100,6 @@ struct ContentView: View {
     private func generateWord() {
         if let word = WordManager(wordLength: Constants.wordLength).getRandomWord() {
             targetWord = word
-            targetWord = "TESTS"
         } else {
             assertionFailure("Failed to find target word.")
         }
