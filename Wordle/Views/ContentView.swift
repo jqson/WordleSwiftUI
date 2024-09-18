@@ -28,10 +28,12 @@ struct ContentView: View {
     @State private var inputString: String = ""
     @State private var guessState: GuessState = .valid
     
+    @FocusState var isTextFieldFocused: Bool
+    
     var message: String {
         switch guessState {
         case .valid:
-            ""
+            " "
         case .wrongLength:
             "Wong length"
         case .invalidWord:
@@ -68,6 +70,8 @@ struct ContentView: View {
                     .font(.system(size: 20))
                     .foregroundStyle(.white)
                     .tint(.white)
+                    .focused($isTextFieldFocused)
+                    .disabled(guessState == .correct)
                     .onSubmit {
                         if guessState != .correct {
                             buttonClicked()
@@ -89,7 +93,7 @@ struct ContentView: View {
             }
             .padding([.top, .bottom], 150)
             .padding([.leading, .trailing], 40)
-            .onAppear(perform: generateWord)
+            .onAppear(perform: restartGame)
         }
     }
     
@@ -110,7 +114,10 @@ struct ContentView: View {
         
         guessState = validInput(inputText: inputString)
         
-        guard guessState == .valid else { return }
+        guard guessState == .valid else {
+            isTextFieldFocused = true
+            return
+        }
         
         let guessWord: Word = .init(
             id: modelData.guesses.count,
@@ -122,6 +129,8 @@ struct ContentView: View {
         
         if guessWord.guessResult.isCorrect {
             guessState = .correct
+        } else {
+            isTextFieldFocused = true
         }
     }
     
@@ -145,6 +154,7 @@ struct ContentView: View {
         generateWord()
         modelData.guesses = []
         guessState = .valid
+        isTextFieldFocused = true
     }
 }
 
