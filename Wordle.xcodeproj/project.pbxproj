@@ -18,6 +18,8 @@
 		379BE4472C9293CF00C8EF7D /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE4462C9293CF00C8EF7D /* Word.swift */; };
 		379BE4492C9650BF00C8EF7D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE4482C9650BF00C8EF7D /* ContentView.swift */; };
 		379BE44F2C9A5C5200C8EF7D /* LetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE44E2C9A5C5200C8EF7D /* LetterView.swift */; };
+		379BE4512C9AB24C00C8EF7D /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE4502C9AB24C00C8EF7D /* KeyboardView.swift */; };
+		379BE4532C9ABFDA00C8EF7D /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE4522C9ABFDA00C8EF7D /* KeyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		379BE4462C9293CF00C8EF7D /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		379BE4482C9650BF00C8EF7D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		379BE44E2C9A5C5200C8EF7D /* LetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterView.swift; sourceTree = "<group>"; };
+		379BE4502C9AB24C00C8EF7D /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
+		379BE4522C9ABFDA00C8EF7D /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,8 @@
 				379BE44E2C9A5C5200C8EF7D /* LetterView.swift */,
 				379BE43F2C92720400C8EF7D /* WordView.swift */,
 				379BE4412C92728400C8EF7D /* WordListView.swift */,
+				379BE4522C9ABFDA00C8EF7D /* KeyView.swift */,
+				379BE4502C9AB24C00C8EF7D /* KeyboardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,7 +191,9 @@
 			files = (
 				379BE4402C92720400C8EF7D /* WordView.swift in Sources */,
 				379BE4472C9293CF00C8EF7D /* Word.swift in Sources */,
+				379BE4532C9ABFDA00C8EF7D /* KeyView.swift in Sources */,
 				379BE4492C9650BF00C8EF7D /* ContentView.swift in Sources */,
+				379BE4512C9AB24C00C8EF7D /* KeyboardView.swift in Sources */,
 				379BE4422C92728400C8EF7D /* WordListView.swift in Sources */,
 				3701B29B2C8E96200014B321 /* WordleApp.swift in Sources */,
 				379BE43C2C92562E00C8EF7D /* WordManager.swift in Sources */,

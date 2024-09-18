@@ -1,41 +1,40 @@
 //
-//  LetterView.swift
+//  KeyView.swift
 //  Wordle
 //
-//  Created by Yuanfeng Jiao on 9/17/24.
+//  Created by Yuanfeng Jiao on 9/18/24.
 //
 
 import SwiftUI
 
-
-struct LetterView: View {
+struct KeyView: View {
     
-    var letter: String
-    var letterState: LetterState
+    var key: String
+    var keyState: KeyboardView.KeyState
     
     var backgroundColor: Color {
-        switch letterState {
+        switch keyState {
         case .correct:
             return .letterCorrect
         case .present:
             return .letterPresent
         case .absent:
             return .letterAbsent
-        case .notFilled:
-            return .clear
+        case .unknown:
+            return .letterUnknown
         }
     }
     
     var body: some View {
         ZStack {
             backgroundColor
-            Text(letter)
-                .font(.system(size: 22, weight: .heavy))
+            Text(key)
+                .font(.system(size: 18, weight: .heavy))
                 .foregroundStyle(.white)
         }
     }
 }
 
 #Preview {
-    LetterView(letter: "A", letterState: .correct)
+    KeyView(key: "A", keyState: .unknown)
 }

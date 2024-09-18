@@ -80,7 +80,6 @@ struct ContentView: View {
                 
                 Text(message)
                     .foregroundStyle(.white)
-                    .padding(20)
                 
                 Button(action: buttonClicked) {
                     Text(buttonText)
@@ -90,8 +89,12 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .tint(.letterCorrect)
+                .padding([.top, .bottom], 20)
+                
+                KeyboardView().environment(modelData)
             }
-            .padding([.top, .bottom], 150)
+            .padding(.top, 100)
+            .padding(.bottom, 80)
             .padding([.leading, .trailing], 40)
             .onAppear(perform: restartGame)
         }
