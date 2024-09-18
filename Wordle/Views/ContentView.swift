@@ -13,11 +13,12 @@ struct ContentView: View {
         static var wordLength: Int = 5
     }
     
-    enum InputState {
+    enum GuessState {
         case valid
         case wrongLength
         case invalidWord
         case wordNotFound
+        case correct
         case unknown
     }
     
@@ -25,7 +26,32 @@ struct ContentView: View {
     
     @State private var targetWord: String = ""
     @State private var inputString: String = ""
-    @State private var inputState: InputState = .valid
+    @State private var guessState: GuessState = .valid
+    
+    var message: String {
+        switch guessState {
+        case .valid:
+            ""
+        case .wrongLength:
+            "Wong length"
+        case .invalidWord:
+            "Invalid input"
+        case .wordNotFound:
+            "Not a word"
+        case .correct:
+            "Congratulations!"
+        case .unknown:
+            "Unknown error"
+        }
+    }
+    
+    var buttonText: String {
+        if guessState == .correct {
+            "Next Game"
+        } else {
+            "Confirm"
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -42,13 +68,18 @@ struct ContentView: View {
                     .font(.system(size: 20))
                     .foregroundStyle(.white)
                     .tint(.white)
+                    .onSubmit {
+                        if guessState != .correct {
+                            buttonClicked()
+                        }
+                    }
                 
-                Text(getMessage())
+                Text(message)
                     .foregroundStyle(.white)
                     .padding(20)
                 
                 Button(action: buttonClicked) {
-                    Text("Confirm")
+                    Text(buttonText)
                         .font(.system(size: 20, weight: .bold))
                         .frame(maxWidth: .infinity)
                 }
@@ -65,27 +96,36 @@ struct ContentView: View {
     private func generateWord() {
         if let word = WordManager(wordLength: Constants.wordLength).getRandomWord() {
             targetWord = word
+            targetWord = "TESTS"
         } else {
             assertionFailure("Failed to find target word.")
         }
     }
     
     private func buttonClicked() {
-        inputState = validInput(inputText: inputString)
+        guard guessState != .correct else {
+            restartGame()
+            return
+        }
         
-        guard inputState == .valid else { return }
+        guessState = validInput(inputText: inputString)
         
-        modelData.guesses.append(
-            .init(
-                id: modelData.guesses.count,
-                targetWord: targetWord,
-                inputText: inputString
-            )
+        guard guessState == .valid else { return }
+        
+        let guessWord: Word = .init(
+            id: modelData.guesses.count,
+            targetWord: targetWord,
+            inputText: inputString
         )
+        modelData.guesses.append(guessWord)
         inputString = ""
+        
+        if guessWord.guessResult.isCorrect {
+            guessState = .correct
+        }
     }
     
-    private func validInput(inputText: String) -> InputState {
+    private func validInput(inputText: String) -> GuessState {
         if inputText.count != Constants.wordLength {
             return .wrongLength
         }
@@ -101,22 +141,10 @@ struct ContentView: View {
         return .valid
     }
     
-    private func getMessage() -> String {
-        let message: String
-        switch inputState {
-        case .wrongLength:
-            message = "Wong length"
-        case .invalidWord:
-            message = "Invalid input"
-        case .wordNotFound:
-            message = "Not a word"
-        case .unknown:
-            message = "Unknown error"
-        case .valid:
-            message = ""
-        }
-        
-        return message
+    private func restartGame() {
+        generateWord()
+        modelData.guesses = []
+        guessState = .valid
     }
 }
 
