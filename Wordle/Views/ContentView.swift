@@ -61,7 +61,9 @@ struct ContentView: View {
             Color.black.ignoresSafeArea()
             
             VStack(alignment: .center) {
-                WordListView().environment(modelData)
+                WordListView()
+                    .environment(modelData)
+                    .padding(.top, 60)
                 
                 Spacer()
                 
@@ -93,9 +95,10 @@ struct ContentView: View {
                 .tint(.letterCorrect)
                 .padding([.top, .bottom], 20)
                 
-                KeyboardView().environment(modelData)
+                KeyboardView()
+                    .environment(modelData)
+                    .padding(.bottom, 40)
             }
-            .padding(.top, 80)
             .padding([.leading, .trailing], 40)
             .onAppear(perform: restartGame)
         }

@@ -36,21 +36,18 @@ struct Word {
     }
     
     init(targetWord: String, inputText: String) {
-        var unmatchedCounts: [Character: Int] = [:]
-        
-        for (idx, inputChar) in inputText.enumerated() {
-            let targetChar = targetWord[targetWord.index(targetWord.startIndex, offsetBy: idx)]
-            if inputChar != targetChar {
-                unmatchedCounts[targetChar] = unmatchedCounts[targetChar] ?? 0 + 1
+        let unmatchedCounts: Set<Character> = Set(
+            targetWord.enumerated().compactMap {
+                inputText[inputText.index(inputText.startIndex, offsetBy: $0)] != $1 ? $1 : nil
             }
-        }
+        )
         
         var result: GuessResult = []
         for (idx, inputChar) in inputText.enumerated() {
             let letterResult: (Character, LetterState)
             if inputChar == targetWord[targetWord.index(targetWord.startIndex, offsetBy: idx)] {
                 letterResult = (inputChar, .correct)
-            } else if unmatchedCounts[inputChar] ?? 0 > 0 {
+            } else if unmatchedCounts.contains(inputChar) {
                 letterResult = (inputChar, .present)
             } else {
                 letterResult = (inputChar, .absent)
