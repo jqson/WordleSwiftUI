@@ -36,14 +36,21 @@ struct Word {
     }
     
     init(targetWord: String, inputText: String) {
-        let letters: Set<Character> = Set(Array(targetWord))
+        var unmatchedCounts: [Character: Int] = [:]
+        
+        for (idx, inputChar) in inputText.enumerated() {
+            let targetChar = targetWord[targetWord.index(targetWord.startIndex, offsetBy: idx)]
+            if inputChar != targetChar {
+                unmatchedCounts[targetChar] = unmatchedCounts[targetChar] ?? 0 + 1
+            }
+        }
         
         var result: GuessResult = []
         for (idx, inputChar) in inputText.enumerated() {
             let letterResult: (Character, LetterState)
             if inputChar == targetWord[targetWord.index(targetWord.startIndex, offsetBy: idx)] {
                 letterResult = (inputChar, .correct)
-            } else if letters.contains(inputChar) {
+            } else if unmatchedCounts[inputChar] ?? 0 > 0 {
                 letterResult = (inputChar, .present)
             } else {
                 letterResult = (inputChar, .absent)
