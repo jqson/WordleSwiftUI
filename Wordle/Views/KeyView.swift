@@ -29,7 +29,7 @@ struct KeyView: View {
         ZStack {
             backgroundColor
             Text(key)
-                .font(.system(size: 18, weight: .heavy))
+                .font(.system(size: 16, weight: .heavy))
                 .foregroundStyle(.white)
         }
     }

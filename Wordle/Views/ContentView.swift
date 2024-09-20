@@ -11,6 +11,7 @@ struct ContentView: View {
     
     enum Constants {
         static var wordLength: Int = 5
+        static var maxGuess: Int = 6
     }
     
     enum GuessState {
@@ -67,6 +68,7 @@ struct ContentView: View {
                 TextField("", text: $inputString, prompt: Text("INPUT").foregroundStyle(.gray))
                     .multilineTextAlignment(.center)
                     .autocapitalization(.allCharacters)
+                    .disableAutocorrection(true)
                     .font(.system(size: 20))
                     .foregroundStyle(.white)
                     .tint(.white)
@@ -93,8 +95,7 @@ struct ContentView: View {
                 
                 KeyboardView().environment(modelData)
             }
-            .padding(.top, 100)
-            .padding(.bottom, 80)
+            .padding(.top, 80)
             .padding([.leading, .trailing], 40)
             .onAppear(perform: restartGame)
         }
@@ -121,11 +122,8 @@ struct ContentView: View {
             return
         }
         
-        let guessWord: Word = .init(
-            id: modelData.guesses.count,
-            targetWord: targetWord,
-            inputText: inputString
-        )
+        let guessWord: Word = .init(targetWord: targetWord, inputText: inputString)
+        
         modelData.guesses.append(guessWord)
         inputString = ""
         

@@ -21,7 +21,15 @@ struct LetterView: View {
             return .letterPresent
         case .absent:
             return .letterAbsent
-        case .notFilled:
+        case .pending:
+            return .clear
+        }
+    }
+    
+    var borderColor: Color {
+        if letterState == .pending {
+            return .letterAbsent
+        } else {
             return .clear
         }
     }
@@ -33,6 +41,7 @@ struct LetterView: View {
                 .font(.system(size: 22, weight: .heavy))
                 .foregroundStyle(.white)
         }
+        .border(borderColor, width: 2)
     }
 }
 

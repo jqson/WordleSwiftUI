@@ -10,14 +10,18 @@ import SwiftUI
 struct WordListView: View {
     @Environment(ModelData.self) var modelData
 
-    var gusses: [Word] {
+    var guesses: [Word] {
         modelData.guesses
     }
     
     var body: some View {
         VStack(spacing: WordView.Constants.letterPadding) {
-            ForEach(gusses) { guess in
-                WordView(word: guess)
+            ForEach(0..<ContentView.Constants.maxGuess, id: \.self) {
+                if $0 < guesses.count {
+                    WordView(word: guesses[$0])
+                } else {
+                    WordView(word: .init(wordLength: ContentView.Constants.wordLength))
+                }
             }
         }
     }

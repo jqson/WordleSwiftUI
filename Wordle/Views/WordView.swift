@@ -30,5 +30,5 @@ struct WordView: View {
 }
 
 #Preview {
-    WordView(word: .init(id: 0))
+    WordView(word: .init())
 }

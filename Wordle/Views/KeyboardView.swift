@@ -62,7 +62,7 @@ struct KeyboardView: View {
                         key: key,
                         keyState: modelData.getKeyState(letter: key)
                     )
-                    .cornerRadius(5)
+                    .cornerRadius(3)
                     .frame(width: Constants.keyWidth, height: Constants.keyHeight)
                 }
             }

@@ -12,7 +12,7 @@ enum LetterState {
     case correct
     case present
     case absent
-    case notFilled
+    case pending
 }
 
 typealias GuessResult = [(String, LetterState)]
@@ -22,25 +22,20 @@ extension GuessResult {
     }
 }
 
-struct Word: Identifiable {
-    let id: Int
+struct Word {
     let guessResult: GuessResult
     
-    init(id: Int) {
-        self.id = id
-        
+    init() {
         guessResult = [
             ("T", .present),
             ("E", .correct),
             ("S", .absent),
             ("T", .present),
-            ("S", .absent),
+            ("S", .pending),
         ]
     }
     
-    init(id: Int, targetWord: String, inputText: String) {
-        self.id = id
-        
+    init(targetWord: String, inputText: String) {
         let letters: Set<Character> = Set(Array(targetWord))
         
         var result: GuessResult = []
@@ -56,6 +51,21 @@ struct Word: Identifiable {
             result.append((String(letterResult.0), letterResult.1))
         }
         
+        guessResult = result
+    }
+    
+    init(wordLength: Int, inputText: String = "") {
+        var result: GuessResult = []
+        for idx in 0..<wordLength {
+            let letter: String
+            if idx < inputText.count {
+                letter = String(inputText[inputText.index(inputText.startIndex, offsetBy: idx)])
+            } else {
+                letter = ""
+            }
+            
+            result.append((letter, .pending))
+        }
         guessResult = result
     }
 }
