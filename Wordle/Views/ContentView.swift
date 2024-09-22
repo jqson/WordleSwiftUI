@@ -20,7 +20,12 @@ struct ContentView: View {
         case invalidWord
         case wordNotFound
         case correct
+        case gameOver
         case unknown
+        
+        var isFinished: Bool {
+            self == .correct || self == .gameOver
+        }
     }
     
     @Environment(ModelData.self) var modelData
@@ -43,13 +48,15 @@ struct ContentView: View {
             "Not a word"
         case .correct:
             "Congratulations!"
+        case .gameOver:
+            targetWord
         case .unknown:
             "Unknown error"
         }
     }
     
     var buttonText: String {
-        if guessState == .correct {
+        if guessState.isFinished {
             "Next Game"
         } else {
             "Confirm"
@@ -75,9 +82,9 @@ struct ContentView: View {
                     .foregroundStyle(.white)
                     .tint(.white)
                     .focused($isTextFieldFocused)
-                    .disabled(guessState == .correct)
+                    .disabled(guessState.isFinished)
                     .onSubmit {
-                        if guessState != .correct {
+                        if !guessState.isFinished {
                             buttonClicked()
                         }
                     }
@@ -113,7 +120,7 @@ struct ContentView: View {
     }
     
     private func buttonClicked() {
-        guard guessState != .correct else {
+        guard !guessState.isFinished else {
             restartGame()
             return
         }
@@ -132,6 +139,8 @@ struct ContentView: View {
         
         if guessWord.guessResult.isCorrect {
             guessState = .correct
+        } else if modelData.guesses.count >= Constants.maxGuess {
+            guessState = .gameOver
         } else {
             isTextFieldFocused = true
         }
