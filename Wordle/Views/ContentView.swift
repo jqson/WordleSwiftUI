@@ -68,7 +68,7 @@ struct ContentView: View {
             Color.black.ignoresSafeArea()
             
             VStack(alignment: .center) {
-                WordListView()
+                WordListView(inputString: inputString)
                     .environment(modelData)
                     .padding(.top, 60)
                     .focusable()
@@ -79,8 +79,6 @@ struct ContentView: View {
                     }
                 
                 Spacer()
-                
-                Text(inputString).foregroundStyle(.white)
                 
                 Text(message)
                     .foregroundStyle(.white)
@@ -122,12 +120,14 @@ struct ContentView: View {
         
         if keyPress.key == .delete, inputString.count > 0 {
             inputString = String(inputString.dropLast())
+            guessState = .valid
             return .handled
         }
         
         let char = keyPress.key.character
         if char.isLetter, inputString.count < Constants.wordLength {
             inputString += char.uppercased()
+            guessState = .valid
             return .handled
         }
         

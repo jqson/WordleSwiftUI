@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct WordListView: View {
+    
     @Environment(ModelData.self) var modelData
+    
+    var inputString: String
 
     var guesses: [Word] {
         modelData.guesses
@@ -19,6 +22,11 @@ struct WordListView: View {
             ForEach(0..<ContentView.Constants.maxGuess, id: \.self) {
                 if $0 < guesses.count {
                     WordView(word: guesses[$0])
+                } else if $0 == guesses.count {
+                    let inputWord: Word = .init(
+                        wordLength: ContentView.Constants.wordLength, inputText: inputString
+                    )
+                    WordView(word: inputWord)
                 } else {
                     WordView(word: .init(wordLength: ContentView.Constants.wordLength))
                 }
@@ -28,5 +36,5 @@ struct WordListView: View {
 }
 
 #Preview {
-    WordListView().environment(ModelData())
+    WordListView(inputString: "TEST").environment(ModelData())
 }
