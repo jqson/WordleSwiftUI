@@ -34,7 +34,7 @@ struct ContentView: View {
     @State private var inputString: String = ""
     @State private var guessState: GuessState = .valid
     
-    @FocusState var isTextFieldFocused: Bool
+    @FocusState private var isWordListViewFocused: Bool
     
     var message: String {
         switch guessState {
@@ -71,23 +71,16 @@ struct ContentView: View {
                 WordListView()
                     .environment(modelData)
                     .padding(.top, 60)
+                    .focusable()
+                    .focused($isWordListViewFocused)
+                    .onAppear(perform: { isWordListViewFocused = true })
+                    .onKeyPress { keyPress in
+                        return handleKeyPress(keyPress: keyPress)
+                    }
                 
                 Spacer()
                 
-                TextField("", text: $inputString, prompt: Text("INPUT").foregroundStyle(.gray))
-                    .multilineTextAlignment(.center)
-                    .autocapitalization(.allCharacters)
-                    .disableAutocorrection(true)
-                    .font(.system(size: 20))
-                    .foregroundStyle(.white)
-                    .tint(.white)
-                    .focused($isTextFieldFocused)
-                    .disabled(guessState.isFinished)
-                    .onSubmit {
-                        if !guessState.isFinished {
-                            buttonClicked()
-                        }
-                    }
+                Text(inputString).foregroundStyle(.white)
                 
                 Text(message)
                     .foregroundStyle(.white)
@@ -119,6 +112,26 @@ struct ContentView: View {
         }
     }
     
+    private func handleKeyPress(keyPress: KeyPress) -> KeyPress.Result {
+        if keyPress.key == .return, inputString.count == Constants.wordLength {
+            buttonClicked()
+            return .handled
+        }
+        
+        if keyPress.key == .delete, inputString.count > 0 {
+            inputString = String(inputString.dropLast())
+            return .handled
+        }
+        
+        let char = keyPress.key.character
+        if char.isLetter, inputString.count < Constants.wordLength {
+            inputString += char.uppercased()
+            return .handled
+        }
+        
+        return .ignored
+    }
+    
     private func buttonClicked() {
         guard !guessState.isFinished else {
             restartGame()
@@ -128,7 +141,6 @@ struct ContentView: View {
         guessState = validInput(inputText: inputString)
         
         guard guessState == .valid else {
-            isTextFieldFocused = true
             return
         }
         
@@ -141,8 +153,6 @@ struct ContentView: View {
             guessState = .correct
         } else if modelData.guesses.count >= Constants.maxGuess {
             guessState = .gameOver
-        } else {
-            isTextFieldFocused = true
         }
     }
     
@@ -166,7 +176,6 @@ struct ContentView: View {
         generateWord()
         modelData.guesses = []
         guessState = .valid
-        isTextFieldFocused = true
     }
 }
 
