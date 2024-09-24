@@ -113,6 +113,8 @@ struct ContentView: View {
     }
     
     private func handleKeyPress(keyPress: KeyPress) -> KeyPress.Result {
+        guard !guessState.isFinished else { return .ignored }
+        
         if keyPress.key == .return, inputString.count == Constants.wordLength {
             buttonClicked()
             return .handled
