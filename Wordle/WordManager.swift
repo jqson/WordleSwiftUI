@@ -11,8 +11,8 @@ import UIKit
 class WordManager {
     
     enum Constants {
-        static var fileName: String = "english-words"
-        static var fileType: String = "txt"
+        static let fileName: String = "english-words"
+        static let fileType: String = "txt"
     }
     
     private var wordList: [String] = []

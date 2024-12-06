@@ -11,13 +11,13 @@ import SwiftUI
 struct KeyboardView: View {
     
     enum Constants {
-        static var keyboardLine1: [String] = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
-        static var keyboardLine2: [String] = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
-        static var keyboardLine3: [String] = ["Z", "X", "C", "V", "B", "N", "M"]
+        static let keyboardLine1: [String] = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
+        static let keyboardLine2: [String] = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
+        static let keyboardLine3: [String] = ["Z", "X", "C", "V", "B", "N", "M"]
         
-        static var keyWidth: CGFloat = 30
-        static var keyHeight: CGFloat = 40
-        static var keyPadding: CGFloat = 5
+        static let keyWidth: CGFloat = 30
+        static let keyHeight: CGFloat = 40
+        static let keyPadding: CGFloat = 5
     }
     
     enum KeyState {

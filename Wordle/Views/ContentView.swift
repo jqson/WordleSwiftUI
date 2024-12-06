@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {
     
     enum Constants {
-        static var wordLength: Int = 5
-        static var maxGuess: Int = 6
+        static let wordLength: Int = 5
+        static let maxGuess: Int = 6
     }
     
     enum GuessState {

@@ -10,8 +10,8 @@ import SwiftUI
 struct WordView: View {
     
     enum Constants {
-        static var letterSize: CGFloat = 50
-        static var letterPadding: CGFloat = 5
+        static let letterSize: CGFloat = 50
+        static let letterPadding: CGFloat = 5
     }
     
     var word: Word
