@@ -11,8 +11,8 @@ import SwiftUI
 struct KeyboardView: View {
     
     enum Constants {
-        static let keyWidth: CGFloat = 30
-        static let keyHeight: CGFloat = 40
+        static let keyWidth: CGFloat = 32
+        static let keyHeight: CGFloat = 45
         static let keyPadding: CGFloat = 5
     }
     
@@ -31,8 +31,7 @@ struct KeyboardView: View {
         VStack(alignment: .center, spacing: Constants.keyPadding) {
             ForEach(KeyInput.keyboardKeys, id: \.self) { keyboardLine in
                 HStack(spacing: Constants.keyPadding) {
-                    ForEach(0..<keyboardLine.count, id: \.self) {
-                        let key = keyboardLine[$0]
+                    ForEach(keyboardLine, id: \.self) { key in
                         KeyView(
                             key: key,
                             keyState: modelData.getKeyState(letter: key),
