@@ -10,12 +10,6 @@ import SwiftUI
 
 struct KeyboardView: View {
     
-    enum Constants {
-        static let keyWidth: CGFloat = 32
-        static let keyHeight: CGFloat = 45
-        static let keyPadding: CGFloat = 5
-    }
-    
     enum KeyState {
         case correct
         case present
@@ -23,22 +17,55 @@ struct KeyboardView: View {
         case unknown
     }
     
+    struct KeyboardKey: Hashable {
+        
+        enum Constants {
+            static let charKeyFontSize: CGFloat = 18
+            static let funcKeyFontSize: CGFloat = 14
+            static let keyWidth: CGFloat = 32
+            static let keyHeight: CGFloat = 45
+            static let keyPadding: CGFloat = 5
+        }
+        
+        let text: String
+        let fontSize: CGFloat
+        let width: CGFloat
+        let height: CGFloat
+        
+        init(keyText: String) {
+            text = keyText
+            
+            let isFunctionKey: Bool = keyText.count > 1
+            fontSize = isFunctionKey ? KeyboardKey.Constants.funcKeyFontSize : KeyboardKey.Constants.charKeyFontSize
+            width = Constants.keyWidth +
+                (isFunctionKey ? (Constants.keyWidth + Constants.keyPadding) / 2 : 0)
+            height = Constants.keyHeight
+        }
+    }
+    
     @Environment(ModelData.self) var modelData
     
     var keyPressed: (KeyInput) -> Void
     
+    var keyboardKeys: [[KeyboardKey]] {
+        KeyInput.keyboardKeys.map { keyLine in
+            keyLine.map { keyText in .init(keyText: keyText) }
+        }
+    }
+    
     var body: some View {
-        VStack(alignment: .center, spacing: Constants.keyPadding) {
-            ForEach(KeyInput.keyboardKeys, id: \.self) { keyboardLine in
-                HStack(spacing: Constants.keyPadding) {
+        VStack(alignment: .center, spacing: KeyboardKey.Constants.keyPadding) {
+            ForEach(keyboardKeys, id: \.self) { keyboardLine in
+                HStack(spacing: KeyboardKey.Constants.keyPadding) {
                     ForEach(keyboardLine, id: \.self) { key in
                         KeyView(
-                            key: key,
-                            keyState: modelData.getKeyState(letter: key),
+                            key: key.text,
+                            fontSize: key.fontSize,
+                            keyState: modelData.getKeyState(letter: key.text),
                             keyPressed: keyPressed
                         )
                         .cornerRadius(5)
-                        .frame(width: Constants.keyWidth, height: Constants.keyHeight)
+                        .frame(width: key.width, height: key.height)
                     }
                 }
             }

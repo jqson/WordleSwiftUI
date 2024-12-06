@@ -13,11 +13,11 @@ enum KeyInput {
     static let keyboardKeys: [[String]] = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
         ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-        [keyboardEnter, "Z", "X", "C", "V", "B", "N", "M", keyboardBack]
+        [keyboardEnter, "Z", "X", "C", "V", "B", "N", "M", keyboardDelete]
     ]
     
     static let keyboardEnter: String = "Enter"
-    static let keyboardBack: String = "Back"
+    static let keyboardDelete: String = "Del"
     
     case character(String)
     case enter
@@ -43,7 +43,7 @@ enum KeyInput {
         switch key {
         case keyboardEnter:
             return .enter
-        case keyboardBack:
+        case keyboardDelete:
             return .delete
         default:
             return .character(key)

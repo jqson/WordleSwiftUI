@@ -10,6 +10,7 @@ import SwiftUI
 struct KeyView: View {
     
     var key: String
+    var fontSize: CGFloat
     var keyState: KeyboardView.KeyState
     var keyPressed: (KeyInput) -> Void
     
@@ -30,7 +31,7 @@ struct KeyView: View {
         ZStack {
             backgroundColor
             Text(key)
-                .font(.system(size: 18, weight: .heavy))
+                .font(.system(size: fontSize, weight: .heavy))
                 .foregroundStyle(.white)
                 .onTapGesture {
                     keyPressed(KeyInput.fromKey(key))
@@ -40,5 +41,5 @@ struct KeyView: View {
 }
 
 #Preview {
-    KeyView(key: "A", keyState: .unknown, keyPressed: {_ in })
+    KeyView(key: "A", fontSize: 18, keyState: .unknown, keyPressed: {_ in })
 }
