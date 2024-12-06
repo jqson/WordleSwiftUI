@@ -11,6 +11,7 @@ struct KeyView: View {
     
     var key: String
     var keyState: KeyboardView.KeyState
+    var keyPressed: (KeyInput) -> Void
     
     var backgroundColor: Color {
         switch keyState {
@@ -31,10 +32,13 @@ struct KeyView: View {
             Text(key)
                 .font(.system(size: 16, weight: .heavy))
                 .foregroundStyle(.white)
+                .onTapGesture {
+                    keyPressed(.character(key))
+                }
         }
     }
 }
 
 #Preview {
-    KeyView(key: "A", keyState: .unknown)
+    KeyView(key: "A", keyState: .unknown, keyPressed: {_ in })
 }

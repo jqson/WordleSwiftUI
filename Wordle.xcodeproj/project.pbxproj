@@ -20,6 +20,7 @@
 		379BE44F2C9A5C5200C8EF7D /* LetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE44E2C9A5C5200C8EF7D /* LetterView.swift */; };
 		379BE4512C9AB24C00C8EF7D /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE4502C9AB24C00C8EF7D /* KeyboardView.swift */; };
 		379BE4532C9ABFDA00C8EF7D /* KeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379BE4522C9ABFDA00C8EF7D /* KeyView.swift */; };
+		37F888722D02DC3000258BDC /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F888712D02DC3000258BDC /* Keyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		379BE44E2C9A5C5200C8EF7D /* LetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterView.swift; sourceTree = "<group>"; };
 		379BE4502C9AB24C00C8EF7D /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		379BE4522C9ABFDA00C8EF7D /* KeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyView.swift; sourceTree = "<group>"; };
+		37F888712D02DC3000258BDC /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				379BE4442C92743D00C8EF7D /* ModelData.swift */,
 				379BE4462C9293CF00C8EF7D /* Word.swift */,
+				37F888712D02DC3000258BDC /* Keyboard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				379BE4402C92720400C8EF7D /* WordView.swift in Sources */,
 				379BE4472C9293CF00C8EF7D /* Word.swift in Sources */,
 				379BE4532C9ABFDA00C8EF7D /* KeyView.swift in Sources */,
+				37F888722D02DC3000258BDC /* Keyboard.swift in Sources */,
 				379BE4492C9650BF00C8EF7D /* ContentView.swift in Sources */,
 				379BE4512C9AB24C00C8EF7D /* KeyboardView.swift in Sources */,
 				379BE4422C92728400C8EF7D /* WordListView.swift in Sources */,
@@ -332,6 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Wordle/Preview Content\"";
+				DEVELOPMENT_TEAM = 99D8GKU8Y6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -360,6 +365,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Wordle/Preview Content\"";
+				DEVELOPMENT_TEAM = 99D8GKU8Y6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

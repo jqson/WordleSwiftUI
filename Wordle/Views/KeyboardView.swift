@@ -29,6 +29,8 @@ struct KeyboardView: View {
     
     @Environment(ModelData.self) var modelData
     
+    var keyPressed: (KeyInput) -> Void
+    
     var body: some View {
         VStack(alignment: .center, spacing: Constants.keyPadding) {
             HStack(spacing: Constants.keyPadding) {
@@ -36,7 +38,8 @@ struct KeyboardView: View {
                     let key = Constants.keyboardLine1[$0]
                     KeyView(
                         key: key,
-                        keyState: modelData.getKeyState(letter: key)
+                        keyState: modelData.getKeyState(letter: key),
+                        keyPressed: keyPressed
                     )
                     .cornerRadius(5)
                     .frame(width: Constants.keyWidth, height: Constants.keyHeight)
@@ -48,7 +51,8 @@ struct KeyboardView: View {
                     let key = Constants.keyboardLine2[$0]
                     KeyView(
                         key: key,
-                        keyState: modelData.getKeyState(letter: key)
+                        keyState: modelData.getKeyState(letter: key),
+                        keyPressed: keyPressed
                     )
                     .cornerRadius(5)
                     .frame(width: Constants.keyWidth, height: Constants.keyHeight)
@@ -60,7 +64,8 @@ struct KeyboardView: View {
                     let key = Constants.keyboardLine3[$0]
                     KeyView(
                         key: key,
-                        keyState: modelData.getKeyState(letter: key)
+                        keyState: modelData.getKeyState(letter: key),
+                        keyPressed: keyPressed
                     )
                     .cornerRadius(3)
                     .frame(width: Constants.keyWidth, height: Constants.keyHeight)
@@ -89,7 +94,7 @@ struct KeyboardView: View {
 }
 
 #Preview {
-    KeyboardView().environment(ModelData())
+    KeyboardView(keyPressed: {_ in }).environment(ModelData())
 }
 
 extension ModelData {

@@ -75,7 +75,12 @@ struct ContentView: View {
                     .focused($isWordListViewFocused)
                     .onAppear(perform: { isWordListViewFocused = true })
                     .onKeyPress { keyPress in
-                        return handleKeyPress(keyPress: keyPress)
+                        if let keyInput = KeyInput.fromKeyPress(keyPress) {
+                            handleKeyInput(keyInput: keyInput)
+                            return .handled
+                        } else {
+                            return .ignored
+                        }
                     }
                 
                 Spacer()
@@ -93,7 +98,7 @@ struct ContentView: View {
                 .tint(.letterCorrect)
                 .padding([.top, .bottom], 20)
                 
-                KeyboardView()
+                KeyboardView(keyPressed: { keyInput in handleKeyInput(keyInput: keyInput) })
                     .environment(modelData)
                     .padding(.bottom, 40)
             }
@@ -110,28 +115,25 @@ struct ContentView: View {
         }
     }
     
-    private func handleKeyPress(keyPress: KeyPress) -> KeyPress.Result {
-        guard !guessState.isFinished else { return .ignored }
+    private func handleKeyInput(keyInput: KeyInput) {
+        guard !guessState.isFinished else { return }
         
-        if keyPress.key == .return, inputString.count == Constants.wordLength {
-            buttonClicked()
-            return .handled
+        switch keyInput {
+        case .enter:
+            if inputString.count == Constants.wordLength {
+                buttonClicked()
+            }
+        case .delete:
+            if inputString.count > 0 {
+                inputString = String(inputString.dropLast())
+                guessState = .valid
+            }
+        case .character(let char):
+            if inputString.count < Constants.wordLength {
+                inputString += char
+                guessState = .valid
+            }
         }
-        
-        if keyPress.key == .delete, inputString.count > 0 {
-            inputString = String(inputString.dropLast())
-            guessState = .valid
-            return .handled
-        }
-        
-        let char = keyPress.key.character
-        if char.isLetter, inputString.count < Constants.wordLength {
-            inputString += char.uppercased()
-            guessState = .valid
-            return .handled
-        }
-        
-        return .ignored
     }
     
     private func buttonClicked() {
