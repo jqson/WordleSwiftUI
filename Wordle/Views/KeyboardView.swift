@@ -11,10 +11,6 @@ import SwiftUI
 struct KeyboardView: View {
     
     enum Constants {
-        static let keyboardLine1: [String] = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
-        static let keyboardLine2: [String] = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
-        static let keyboardLine3: [String] = ["Z", "X", "C", "V", "B", "N", "M"]
-        
         static let keyWidth: CGFloat = 30
         static let keyHeight: CGFloat = 40
         static let keyPadding: CGFloat = 5
@@ -33,45 +29,20 @@ struct KeyboardView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: Constants.keyPadding) {
-            HStack(spacing: Constants.keyPadding) {
-                ForEach(0..<Constants.keyboardLine1.count, id: \.self) {
-                    let key = Constants.keyboardLine1[$0]
-                    KeyView(
-                        key: key,
-                        keyState: modelData.getKeyState(letter: key),
-                        keyPressed: keyPressed
-                    )
-                    .cornerRadius(5)
-                    .frame(width: Constants.keyWidth, height: Constants.keyHeight)
+            ForEach(KeyInput.keyboardKeys, id: \.self) { keyboardLine in
+                HStack(spacing: Constants.keyPadding) {
+                    ForEach(0..<keyboardLine.count, id: \.self) {
+                        let key = keyboardLine[$0]
+                        KeyView(
+                            key: key,
+                            keyState: modelData.getKeyState(letter: key),
+                            keyPressed: keyPressed
+                        )
+                        .cornerRadius(5)
+                        .frame(width: Constants.keyWidth, height: Constants.keyHeight)
+                    }
                 }
             }
-            
-            HStack(spacing: Constants.keyPadding) {
-                ForEach(0..<Constants.keyboardLine2.count, id: \.self) {
-                    let key = Constants.keyboardLine2[$0]
-                    KeyView(
-                        key: key,
-                        keyState: modelData.getKeyState(letter: key),
-                        keyPressed: keyPressed
-                    )
-                    .cornerRadius(5)
-                    .frame(width: Constants.keyWidth, height: Constants.keyHeight)
-                }
-            }
-            
-            HStack(spacing: Constants.keyPadding) {
-                ForEach(0..<Constants.keyboardLine3.count, id: \.self) {
-                    let key = Constants.keyboardLine3[$0]
-                    KeyView(
-                        key: key,
-                        keyState: modelData.getKeyState(letter: key),
-                        keyPressed: keyPressed
-                    )
-                    .cornerRadius(3)
-                    .frame(width: Constants.keyWidth, height: Constants.keyHeight)
-                }
-            }
-            .offset(x: -Constants.keyWidth / 2)
         }
     }
     
